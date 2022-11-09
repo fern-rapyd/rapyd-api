@@ -3,9 +3,6 @@
 Tagging a release on this repository will update the:
 
 - [TypeScript SDK repo](https://github.com/fern-rapyd/rapyd-node)
-- [Java SDK repo](https://github.com/fern-rapyd/rapyd-java)
-- [OpenAPI description repo](https://github.com/fern-rapyd/rapyd-openapi)
-- [Postman collection repo](https://github.com/fern-rapyd/rapyd-postman)
 - _More SDKs to come..._
 
 ## What is in this repository?
