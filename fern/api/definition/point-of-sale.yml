@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fern-api/fern/main/fern.schema.json
+
+services:
+  http:
+    PointOfSaleService:
+      base-path: /pos
+      auth: true 
+      headers:
+        phone_number:
+          type: string 
+          docs: Phone number of the wallet in E.164 format.
+      endpoints: 
+        open: 
+          docs: Open a session for a Deposit or Withdraw action.
+          method: POST 
+          path: login/{pos_id}/{otp_code}
+          path-parameters:
+            otp_code: 
+              type: string 
+              docs: User one-time password code.
+            pos_id: 
+              type: string 
+              docs: ID of the point-of-sale location.
+          response: OpenSessionResponse
+
+        close: 
+          docs: Open a session for a Deposit or Withdraw action.
+          path: login/{pos_id}/{otp_code}
+          method: POST 
+          headers: 
+            token_id: 
+              type: string 
+              docs: Token ID received from Open Session.
+          path-parameters:
+            otp_code: 
+              type: string 
+              docs: User one-time password code.
+            pos_id: 
+              type: string 
+              docs: ID of the point-of-sale location.
+          response: CloseSessionResponse
+
+        echo: 
+          docs: Echo the Rapyd platform.
+          method: GET 
+          path: /echo
+          response: EchoResponse
+            
+types: 
+  OpenSessionResponse: 
+    properties:
+      status: Status 
+      data: Data
+  
+  Status: 
+    properties:
+      error_code: string
+      status: StatusOptions 
+      message: string 
+      operation_id: string 
+
+  Data: 
+    properties:
+      token_id: string 
+      operation_id: string 
+      accounts: list<Account>
+
+  Account: 
+    properties:
+      account_id: string 
+      account_currency: Currency 
+      account_alias: string
+      account_balance: integer 
+
+  StatusOptions: 
+    enum: 
+      - SUCCESS
+      - FAILED
+
+  Currency: 
+    enum: 
+      - USD
+      - GBP
+      # etc. 
+  
+  CloseSessionResponse: 
+    properties:
+      error_code: string 
+      status: StatusOptions
+      message: string 
+      operation_id: string 
+    
+  EchoResponse: 
+    properties:
+      error_code: string 
+      status: StatusOptions
+      message: string 
+      operation_id: string 

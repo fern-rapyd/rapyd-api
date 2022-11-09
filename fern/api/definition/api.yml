@@ -1,10 +1,21 @@
 name: api
-auth: bearer
+auth: access_key
+auth-schemes: 
+  access_key: 
+    header: access_key
+    name: accessKey
+    # docs: Unique access key provided by Rapyd for each authorized user.
+headers: 
+  salt: 
+    type: string 
+    docs: Salt for the request signature. A random string for each request. Length is 8-16 digits, letters and special characters.
+  signature: 
+    type: string 
+    docs: Signature calculated for each message individually.
+  timestamp:
+    type: integer
+    docs: The time of the request, in Unix time (seconds). 
 environments:
-  Production:
-    url: 
-    docs:
-  Sandbox:
-    url:
-    docs:
+  Production: https://pos.rapyd.net
+  Sandbox: https://sandboxapi.rapyd.net/v1/
 default-environment: Production
